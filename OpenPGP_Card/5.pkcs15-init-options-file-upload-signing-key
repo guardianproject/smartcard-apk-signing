@@ -1,0 +1,3 @@
+verbose
+store-private-key key.pem
+auth-id 01

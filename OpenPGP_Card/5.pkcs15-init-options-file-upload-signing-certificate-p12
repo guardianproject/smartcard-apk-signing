@@ -1,0 +1,7 @@
+verbose
+delete-objects privkey,pubkey
+id 3
+store-private-key certificate.p12
+format pkcs12
+auth-id 03
+verify-pin
