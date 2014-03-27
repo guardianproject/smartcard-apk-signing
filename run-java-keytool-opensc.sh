@@ -9,10 +9,3 @@
     $@ \
 
 #    -J-Djava.security.debug=sunpkcs11
-
-## PCSC via pcscd
-#/usr/bin/keytool -v \
-#    -providerClass sun.security.smartcardio.SunPCSC \
-#    -keystore NONE -storetype PCSC -list \
-
-#    -J-Djava.security.debug=sunpkcs11
