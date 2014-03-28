@@ -1,0 +1,8 @@
+openssl-gen/certificate.jkr
+openssl-gen/certificate.p12
+openssl-gen/certificate.pem
+openssl-gen/passin.txt
+openssl-gen/passout.txt
+openssl-gen/publickey.pem
+openssl-gen/request.pem
+openssl-gen/secretkey.pem
