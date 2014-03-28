@@ -1,7 +1,7 @@
 #!/bin/sh
 #
 # https://dev.guardianproject.info/projects/bazaar/wiki/Improving_the_APK_Signing_Procedure
-# https://guardianproject.info/2014/03/27/security-in-a-thumb-drive-the-promise-and-pain-of-hardware-security-modules-take-one
+# https://guardianproject.info/2014/03/28/security-in-a-thumb-drive-the-promise-and-pain-of-hardware-security-modules-take-one/
 
 set -e # stop on error
 
@@ -35,7 +35,7 @@ cp passin.txt passout.txt
 chmod 0600 passin.txt passout.txt
 
 echo Generating key, be patient...
-openssl genrsa -out secretkey.pem -passout file:passout.txt -aes128 -rand /dev/urandom $keysize
+openssl genrsa -out secretkey.pem -passout file:passout.txt -aes128 -rand /dev/random $keysize
 openssl req -passin file:passin.txt -new -key secretkey.pem -out request.pem -subj "$1"
 openssl x509 -passin file:passin.txt -req -days 9999 \
     -in request.pem -signkey secretkey.pem -out certificate.pem
