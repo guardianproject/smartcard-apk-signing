@@ -1,0 +1,4 @@
+verbose
+store-private-key certificate.p12
+format pkcs12
+auth-id 01

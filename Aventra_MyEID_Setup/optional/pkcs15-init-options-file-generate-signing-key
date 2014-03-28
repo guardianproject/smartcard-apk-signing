@@ -1,0 +1,3 @@
+verbose
+generate-key  rsa/2048
+auth-id 01

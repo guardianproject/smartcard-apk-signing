@@ -1,0 +1,4 @@
+verbose
+create-pkcs15
+use-default-transport-keys
+profile         pkcs15+default

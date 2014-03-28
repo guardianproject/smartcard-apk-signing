@@ -1,0 +1,3 @@
+verbose
+store-certificate ../cert.pem
+
