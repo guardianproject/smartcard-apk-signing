@@ -22,6 +22,5 @@ run_pkcs15_init 0.pkcs15-init-options-file-erase-card
 run_pkcs15_init 1.pkcs15-init-options-file-create-pkcs15
 run_pkcs15_init 2.pkcs15-init-options-file-store-pin-signing
 run_pkcs15_init 3.pkcs15-init-options-file-store-pin-encryption
-run_pkcs15_init 4.pkcs15-init-options-file-finalize
 
 echo "next generate a key with ./gen.sh then ./finalize.sh"
