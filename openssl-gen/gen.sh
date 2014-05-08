@@ -30,7 +30,9 @@ test -e passout.txt && srm passout.txt
 
 touch passin.txt
 chmod 0600 passin.txt
-cat /dev/urandom | head -2 | tr -cd 'a-zA-Z0-9!@#$%^&*()_+-=\][\;\/\.\,' | cut -b4-30 > passin.txt
+head -2 /dev/urandom | tr -cd 'a-zA-Z0-9!@#$%^&*()_+-=\][\;\/\.\,' | cut -b1-32 > passin.txt
+# we need separate files here because openssl and keytool both refuse to use
+# the same file for input and output passwords
 cp passin.txt passout.txt
 chmod 0600 passin.txt passout.txt
 
