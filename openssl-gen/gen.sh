@@ -53,12 +53,12 @@ openssl rsa -in secretkey.pem -pubout -passin file:passin.txt -out publickey.pem
 #    -destkeystore certificate.jks -deststoretype JKS -deststorepass:file passout.txt
 
 echo "Your HSM will prompt you for 'Security Officer' aka admin PIN, wait for it!"
-keytool -v \
+cat passin.txt | keytool -v \
     -providerClass sun.security.pkcs11.SunPKCS11 \
     -providerArg ../opensc-java.cfg \
     -providerName SunPKCS11-OpenSC \
     -importkeystore \
-    -srckeystore certificate.p12 -srcstoretype PKCS12 -srcstorepass:file passin.txt \
+    -srckeystore certificate.p12 -srcstoretype PKCS12 \
     -destkeystore NONE -deststoretype PKCS11
 
 # print out fingerprints for reference
