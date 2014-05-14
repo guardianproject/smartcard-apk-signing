@@ -13,7 +13,7 @@ fi
 if [ $# -ne 1 ] && [ $# -ne 2 ]; then
     echo "Usage: $0 \"CertDName\" [4096]"
     echo '  for example:'
-    echo '  "/C=US/ST=New York/O=Guardian Project Test/CN=test.guardianproject.info/emailAddress=test@guardianproject.info"'
+    echo '  "/C=US/ST=New York/L=New York/O=Guardian Project Test/CN=test.guardianproject.info/emailAddress=test@guardianproject.info"'
     exit
 fi
 
@@ -24,6 +24,8 @@ if [ ! -z $2 ] && [ $2 = 4096 ]; then
 else
     keysize=2048
 fi
+
+subject=$1
 
 test -e passin.txt && srm passin.txt
 test -e passout.txt && srm passout.txt
@@ -38,7 +40,7 @@ chmod 0600 passin.txt passout.txt
 
 echo Generating key, be patient...
 openssl genrsa -out secretkey.pem -passout file:passout.txt -aes128 -rand /dev/random $keysize
-openssl req -passin file:passin.txt -new -key secretkey.pem -out request.pem -subj "$1"
+openssl req -passin file:passin.txt -new -key secretkey.pem -out request.pem -subj "$subject"
 openssl x509 -passin file:passin.txt -req -days 9999 \
     -in request.pem -signkey secretkey.pem -out certificate.pem
 openssl pkcs12 -export -out certificate.p12 -in certificate.pem -inkey secretkey.pem \
