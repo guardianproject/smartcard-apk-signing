@@ -43,7 +43,7 @@ openssl genrsa -out secretkey.pem -passout file:passout.txt -aes128 -rand /dev/r
 openssl req -passin file:passin.txt -new -key secretkey.pem -out request.pem -subj "$subject"
 openssl x509 -passin file:passin.txt -req -days 9999 \
     -in request.pem -signkey secretkey.pem -out certificate.pem
-openssl pkcs12 -export -out certificate.p12 -in certificate.pem -inkey secretkey.pem \
+openssl pkcs12 -export -out secretkey+certificate.p12 -in certificate.pem -inkey secretkey.pem \
     -passin file:passin.txt -passout file:passout.txt
 
 # output the public key to have handy for publishing
@@ -51,7 +51,7 @@ openssl rsa -in secretkey.pem -pubout -passin file:passin.txt -out publickey.pem
 
 # if you want to generate a regular JKS keystore file on your local disk
 #keytool -importkeystore \
-#    -srckeystore certificate.p12 -srcstoretype PKCS12 -srcstorepass:file passin.txt \
+#    -srckeystore secretkey+certificate.p12 -srcstoretype PKCS12 -srcstorepass:file passin.txt \
 #    -destkeystore certificate.jks -deststoretype JKS -deststorepass:file passout.txt
 
 echo "Your HSM will prompt you for 'Security Officer' aka admin PIN, wait for it!"
@@ -60,7 +60,7 @@ cat passin.txt | keytool -v \
     -providerArg ../opensc-java.cfg \
     -providerName SunPKCS11-OpenSC \
     -importkeystore \
-    -srckeystore certificate.p12 -srcstoretype PKCS12 \
+    -srckeystore secretkey+certificate.p12 -srcstoretype PKCS12 \
     -destkeystore NONE -deststoretype PKCS11
 
 # print out fingerprints for reference
@@ -70,7 +70,7 @@ openssl x509 -in certificate.pem -noout -fingerprint -sha1
 openssl x509 -in certificate.pem -noout -fingerprint -sha256
 
 echo "The public files are: certificate.pem publickey.pem request.pem"
-echo "The secret files are: secretkey.pem certificate.p12 certificate.jkr"
+echo "The secret files are: secretkey.pem secretkey+certificate.p12 secretkey-certificate-keystore.jkr"
 
 echo -n "The passphrase for the secret files is: "
 cat passin.txt
